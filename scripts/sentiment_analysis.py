@@ -80,7 +80,7 @@ def run_sentiment_analysis(df):
     print(df.groupby('bank')['sentiment_score'].mean().round(3))
 
     return df
-
+df = extract_tfidf_keywords(df)
 
 def save_results(df, output_path):
     """Save sentiment results to CSV."""
@@ -105,6 +105,42 @@ def main():
     df = run_sentiment_analysis(df)
     save_results(df, output_path)
 
+def extract_tfidf_keywords(df, top_n=20):
+    """
+    Extract top keywords using TF-IDF per bank.
+    Uses scikit-learn TfidfVectorizer.
+    """
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    
+    print("\n=== TF-IDF KEYWORD EXTRACTION ===")
+    
+    for bank in df['bank'].unique():
+        bank_reviews = df[df['bank'] == bank]['review'].tolist()
+        
+        try:
+            vectorizer = TfidfVectorizer(
+                max_features=top_n,
+                stop_words='english',
+                ngram_range=(1, 2)
+            )
+            tfidf_matrix = vectorizer.fit_transform(bank_reviews)
+            scores = tfidf_matrix.sum(axis=0).A1
+            terms = vectorizer.get_feature_names_out()
+            
+            top_terms = sorted(
+                zip(terms, scores), 
+                key=lambda x: x[1], 
+                reverse=True
+            )[:10]
+            
+            print(f"\n{bank} top keywords:")
+            for term, score in top_terms:
+                print(f"  {term}: {score:.2f}")
+                
+        except Exception as e:
+            print(f"ERROR extracting keywords for {bank}: {e}")
+    
+    return df
 
 if __name__ == '__main__':
     main()
