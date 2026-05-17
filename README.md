@@ -1,78 +1,78 @@
-# Fintech Review Analytics - Week 2
+# Fintech Review Analytics
 
-## Project Overview
+## 10 Academy KAIM 9 - Week 2
 
-This project analyzes customer reviews from three major Ethiopian bank
-mobile apps on Google Play Store on behalf of Omega Consultancy.
+Analyzing customer reviews from Ethiopian bank mobile apps to provide
+data-driven recommendations for product improvement.
 
-We scrape, clean, and analyze over 1,200 reviews to identify sentiment
-patterns and recurring themes that help banks prioritize improvements.
+## Banks Analyzed
 
-## Target Banks
-
-| Bank   | Full Name                   | App ID                       |
-| ------ | --------------------------- | ---------------------------- |
-| CBE    | Commercial Bank of Ethiopia | com.combanketh.mobilebanking |
-| BOA    | Bank of Abyssinia           | com.boa.boaMobileBanking     |
-| Dashen | Dashen Bank                 | com.cr2.amolelight           |
-
-## Scraping Methodology
-
-- Tool: google-play-scraper Python library
-- Reviews per bank: 400 (most recent English reviews)
-- Sort order: Newest first
-- Date range: Reviews collected up to May 2026
-- Fields collected: review text, rating, date, bank name, source
-
-## Scraping Limitations
-
-- Only English language reviews were collected
-- Maximum 400 reviews per bank due to API constraints
-- Reviews older than the app's update cycle may not reflect current UX
-- After preprocessing, 685 of 1,200 reviews remained usable
-
-## Setup Instructions
-
-### 1. Clone the repository
-
-git clone https://github.com/rah-salah/fintech-review-analytics.git
-cd fintech-review-analytics
-
-### 2. Install dependencies
-
-pip install -r requirements.txt
-
-### 3. Run scraping
-
-python scripts/scrape_reviews.py
-
-### 4. Run preprocessing
-
-python scripts/preprocess_reviews.py
-
-### 5. Run sentiment analysis
-
-python scripts/sentiment_analysis.py
+- **CBE** - Commercial Bank of Ethiopia
+- **BOA** - Bank of Abyssinia
+- **Dashen Bank**
 
 ## Project Structure
 
 fintech-review-analytics/
 ├── .github/workflows/ # CI/CD pipeline
-├── data/raw/ # Raw and processed data (not committed)
-├── notebooks/ # Jupyter notebooks for EDA
+├── data/raw/ # Raw and processed data
+├── notebooks/ # Analysis notebooks
 ├── scripts/ # Python scripts
-│ ├── scrape_reviews.py
-│ ├── preprocess_reviews.py
-│ ├── sentiment_analysis.py
-│ └── theme_extraction.py
+│ ├── scrape_reviews.py # Task 1: Collect reviews
+│ ├── preprocess_reviews.py # Task 1: Clean data
+│ ├── sentiment_analysis.py # Task 2: VADER sentiment
+│ └── theme_extraction.py # Task 2: Theme detection
 ├── src/ # Source modules
 ├── tests/ # Unit tests
-├── requirements.txt
-└── README.md
+└── requirements.txt
+
+## Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/rah-salah/fintech-review-analytics.git
+cd fintech-review-analytics
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run the full pipeline
+
+```bash
+python scripts/scrape_reviews.py
+python scripts/preprocess_reviews.py
+python scripts/sentiment_analysis.py
+python scripts/theme_extraction.py
+```
+
+### 4. Run tests
+
+```bash
+pytest tests/ -v
+```
 
 ## Key Findings
 
-- Dashen Bank: highest user satisfaction (avg sentiment: 0.242)
-- BOA: most negative reviews (61 negative, avg sentiment: 0.084)
-- Top complaint theme: App Performance (101 mentions)
-- Top praise theme: Transaction speed and UI design
+- **1,200 reviews** collected (400 per bank)
+- **683 clean reviews** after preprocessing
+- **Dashen** has highest user satisfaction (avg sentiment: 0.242)
+- **BOA** has most negative reviews (lowest sentiment: 0.087)
+- **App Performance** is the most complained about theme across all banks
+
+## Data Sources
+
+- Google Play Store reviews scraped using google-play-scraper
+- Languages: English
+- Country filter: Ethiopia (et)
+
+## Tasks
+
+- Task 1: Data collection and preprocessing
+- Task 2: Sentiment analysis and theme extraction
+- Task 3: Database storage (PostgreSQL/SQLite)
+- Task 4: Visualizations and recommendations
