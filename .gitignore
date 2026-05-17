@@ -1,7 +1,8 @@
-data/
-*.csv
-*.db
 .venv/
 __pycache__/
-.ipynb_checkpoints/
 *.pyc
+*.pyo
+.ipynb_checkpoints/
+data/raw/
+*.db
+.pytest_cache/

@@ -15,3 +15,5 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: pip install pandas numpy matplotlib seaborn nltk scikit-learn pytest
+      - name: Run tests
+        run: pytest tests/ -v
