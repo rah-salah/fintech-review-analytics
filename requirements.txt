@@ -7,3 +7,4 @@ nltk
 scikit-learn
 pytest
 scipy
+psycopg2-binary
